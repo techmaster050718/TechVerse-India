@@ -842,13 +842,13 @@ function adjustColor(color, amount) {
 // 13. SCROLL ANIMATIONS (Counters)
 // ═══════════════════════════════════════════
 function initScrollAnimations() {
-    const counters = document.querySelectorAll('.stat-value[data-target]');
+    const counters = document.querySelectorAll('.stat-value[data-target], .stat-number[data-target]');
     const observerOptions = { threshold: 0.5 };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const target = parseInt(entry.target.dataset.target);
+                const target = parseFloat(entry.target.dataset.target);
                 animateCounter(entry.target, target);
                 observer.unobserve(entry.target);
             }
@@ -861,13 +861,14 @@ function initScrollAnimations() {
 function animateCounter(element, target) {
     let current = 0;
     const increment = target / 60; // ~60 frames
+    const hasDecimal = target % 1 !== 0;
     const timer = setInterval(() => {
         current += increment;
         if (current >= target) {
             element.textContent = target;
             clearInterval(timer);
         } else {
-            element.textContent = Math.floor(current);
+            element.textContent = hasDecimal ? current.toFixed(1) : Math.floor(current);
         }
     }, 20);
 }
