@@ -129,11 +129,14 @@ function setupEventListeners() {
     // Quick Filters
     DOM.quickFilters.forEach(chip => {
         chip.addEventListener('click', () => {
+            const selectedFilter = chip.dataset.filter;
             DOM.quickFilters.forEach(c => c.classList.remove('active'));
             chip.classList.add('active');
-            state.activeQuickFilter = chip.dataset.filter;
-            clearAllFiltersUI();
+            clearAllFiltersUI();  // This resets activeQuickFilter to 'all'
+            state.activeQuickFilter = selectedFilter; // Set AFTER clear so it isn't overwritten
             applyFilters();
+            // Scroll to companies section so user sees the filtered results
+            document.getElementById('companies').scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
     });
     
@@ -215,10 +218,16 @@ function applyFilters() {
     
     // 1. Quick Filter Override
     if (state.activeQuickFilter !== 'all') {
-        const tagMap = { 'python': 'python', 'cloud': 'cloud', 'app': 'android', 'fresher': 'fresher' };
-        const tag = tagMap[state.activeQuickFilter];
-        if (tag) {
-            result = result.filter(c => c.tags.includes(tag));
+        // Each filter key maps to one or more tags (OR logic — match any of them)
+        const tagMap = {
+            'python': ['python'],
+            'cloud': ['cloud', 'devops'],
+            'app': ['android', 'mobile'],
+            'fresher': ['fresher']
+        };
+        const tags = tagMap[state.activeQuickFilter];
+        if (tags) {
+            result = result.filter(c => tags.some(tag => c.tags.includes(tag)));
         }
     }
 
