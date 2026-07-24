@@ -24,7 +24,7 @@ Designed with a premium SaaS-inspired interface, TechVerse delivers a smooth and
 
 - 🔍 Instant Company Search
 - 🎯 Smart Filtering System
-- 🏢 250+ IT Companies
+- 🏢 450+ IT Companies
 - 🌙 Dark / Light Theme
 - ❤️ Favorite Companies (Local Storage)
 - 📊 Animated Statistics
