@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Discover 470+ IT companies hiring tech talent across India. Python, Cloud, DevOps, App Dev roles from FAANG to freshers.">
+        content="Discover IT companies hiring tech talent across India. Python, Cloud, DevOps, App Dev roles from FAANG to freshers."
+        id="pageDescription">
     <title>TechVerse India — IT Company Discovery & Career Explorer</title>
 
     <!-- Fonts -->
@@ -103,7 +104,8 @@
 
         <div class="hero-content">
             <h1 class="hero-title">
-                Discover <span class="gradient-text">470+ Companies</span> Hiring Tech Talent Across India
+                Discover <span class="gradient-text" id="companyCountHeadline">Companies</span> Hiring Tech Talent
+                Across India
             </h1>
             <p class="hero-subtitle">
                 Python · Cloud · DevOps · App Dev · Web · AI/ML — from FAANG to freshers
@@ -130,7 +132,7 @@
 
             <div class="hero-stats">
                 <div class="stat-item">
-                    <span class="stat-number" data-target="470">0</span>+
+                    <span class="stat-number" data-company-count data-target="0">0</span>+
                     <span class="stat-label">Companies</span>
                 </div>
                 <div class="stat-divider"></div>
@@ -376,7 +378,7 @@
                     <div class="stat-icon">
                         <i data-lucide="building-2"></i>
                     </div>
-                    <div class="stat-value" data-target="470">0</div>
+                    <div class="stat-value" data-company-count data-target="0">0</div>
                     <div class="stat-label">Companies Listed</div>
                 </div>
                 <div class="stat-card">
@@ -482,7 +484,8 @@
                 <div class="about-text">
                     <p>TechVerse India is a comprehensive platform designed to help Indian tech freshers and
                         early-career professionals discover their ideal company match.</p>
-                    <p>We've curated data from 470+ companies across India, covering everything from FAANG giants to
+                    <p>We've curated data from <span data-company-count-copy>companies</span> across India, covering
+                        everything from FAANG giants to
                         emerging startups, with real salary data, actual job roles, and verified career page links.</p>
                     <p>Whether you're a Python developer, Cloud engineer, DevOps enthusiast, or App developer — we've
                         got you covered.</p>
@@ -523,7 +526,7 @@
                         <span class="logo-icon">TV</span>
                         <span class="logo-text">TechVerse</span>
                     </a>
-                    <p>Discover 470+ IT companies hiring tech talent across India. Your gateway to the perfect tech
+                    <p>Discover <span data-company-count-copy>IT companies</span> hiring tech talent across India. Your gateway to the perfect tech
                         career.</p>
                 </div>
 
@@ -646,6 +649,7 @@
 
     <!-- Scripts -->
     <script src="js/data.js"></script>
+    <script src="js/company-count.js"></script>
     <script src="js/app.js"></script>
 </body>
 
