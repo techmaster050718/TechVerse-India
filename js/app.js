@@ -271,7 +271,7 @@ function applyFilters() {
     if (minSalary > 0 || maxSalary < 200) {
         result = result.filter(c => {
             const cMin = parseMinSalary(c.fresherPackage);
-            return cMin >= minSalary && cMin <= maxSalary;
+            return cMin !== null && cMin >= minSalary && cMin <= maxSalary;
         });
     }
 
@@ -285,8 +285,8 @@ function applyFilters() {
     result.sort((a, b) => {
         if (sortValue === 'name-asc') return a.name.localeCompare(b.name);
         if (sortValue === 'name-desc') return b.name.localeCompare(a.name);
-        if (sortValue === 'package-high') return parseMinSalary(b.fresherPackage) - parseMinSalary(a.fresherPackage);
-        if (sortValue === 'package-low') return parseMinSalary(a.fresherPackage) - parseMinSalary(b.fresherPackage);
+        if (sortValue === 'package-high') return comparePackages(a, b, true);
+        if (sortValue === 'package-low') return comparePackages(a, b);
         if (sortValue === 'fresher-first') return (b.fresherFriendly ? 1 : 0) - (a.fresherFriendly ? 1 : 0);
         return 0;
     });
@@ -297,10 +297,18 @@ function applyFilters() {
 }
 
 function parseMinSalary(str) {
-    if (!str) return 0;
+    if (!str) return null;
     // Extracts the first number found in the string (e.g., "₹3.5–9 LPA" -> 3.5)
     const match = str.match(/(\d+(\.\d+)?)/);
-    return match ? parseFloat(match[1]) : 0;
+    return match ? parseFloat(match[1]) : null;
+}
+
+function comparePackages(a, b, descending = false) {
+    const first = parseMinSalary(a.fresherPackage);
+    const second = parseMinSalary(b.fresherPackage);
+    if (first === null) return second === null ? 0 : 1;
+    if (second === null) return -1;
+    return descending ? second - first : first - second;
 }
 
 function clearAllFiltersUI() {
